@@ -10,11 +10,19 @@ export default function PromiseSection() {
   const [words, setWords] = useState([]);
   const [visibleCount, setVisibleCount] = useState(0);
   const intervalRef = useRef(null);
+  const cardRef = useRef(null);
   const refSection = useReveal();
+
+  function scrollToCard() {
+    setTimeout(() => {
+      cardRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 120);
+  }
 
   function reveal() {
     setRevealed(true);
     animateWords(messages[0]);
+    scrollToCard();
   }
 
   function animateWords(text) {
@@ -34,6 +42,7 @@ export default function PromiseSection() {
     const next = (msgIndex + 1) % messages.length;
     setMsgIndex(next);
     animateWords(messages[next]);
+    scrollToCard();
   }
 
   useEffect(() => () => clearInterval(intervalRef.current), []);
@@ -86,6 +95,7 @@ export default function PromiseSection() {
 
       {revealed && (
         <div
+          ref={cardRef}
           style={{
             marginTop: "0.5rem",
             background: "rgba(20, 19, 26, 0.85)",
