@@ -238,7 +238,7 @@ export default function PinGate({ onUnlock, theme, onToggleTheme }) {
         </p>
 
         <p style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "0.88rem", color: "rgba(250,246,245,0.6)", marginBottom: "2rem", lineHeight: 1.6 }}>
-          Masukkan 6 digit tanggal jadian kita (DDMMYY)
+          Enter our 6-digit anniversary date (DDMMYY)
         </p>
 
         <div
