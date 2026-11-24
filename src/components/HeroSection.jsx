@@ -29,11 +29,11 @@ export default function HeroSection({ theme, onToggleTheme }) {
         type="button"
         className="hero-theme-toggle"
         onClick={onToggleTheme}
-        aria-label={`Ganti ke mode ${nextTheme === "night" ? "malam" : "siang"}`}
+        aria-label={`Ganti ke mode ${nextTheme === "night" ? "" : ""}`}
         aria-pressed={theme === "night"}
       >
         <ThemeIcon size={16} strokeWidth={1.5} />
-        <span>{nextTheme === "night" ? "Malam" : "Siang"}</span>
+        <span>{nextTheme === "night" ? "" : ""}</span>
       </button>
       <SpotifyPlayer />
 

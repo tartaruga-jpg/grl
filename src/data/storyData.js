@@ -141,6 +141,6 @@ export const config = {
 
   // --- Footer ---
   footer: {
-    text: "Made with love ♡ Zack",
+    text: "Made with love ♡ Zaki",
   },
 };
