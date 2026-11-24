@@ -179,7 +179,7 @@ export default function PinGate({ onUnlock, theme, onToggleTheme }) {
               userSelect: "none",
             }}
           >
-            Selamat Datang, Sayangku 🤍
+            Welcome, my love 🤍
           </p>
 
           <p
