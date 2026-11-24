@@ -57,6 +57,7 @@ export default function PromiseSection() {
 
       {/* Glowing Pill Button — Stays visible always */}
       <button
+        className="promise-main-button"
         onClick={() => {
           if (!revealed) {
             reveal();
@@ -96,6 +97,7 @@ export default function PromiseSection() {
       {revealed && (
         <div
           ref={cardRef}
+          className="promise-card"
           style={{
             marginTop: "0.5rem",
             background: "rgba(20, 19, 26, 0.85)",
@@ -118,7 +120,7 @@ export default function PromiseSection() {
 
           {/* Great Vibes accent */}
           <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: "1.45rem", color: "#E5C17B", marginBottom: "0.85rem" }}>
-            Untuk pacarku tersayang...
+             My Love  &  Our Hopes
           </p>
 
           {/* Word-by-word animated message */}
@@ -141,6 +143,7 @@ export default function PromiseSection() {
 
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "1.75rem", flexWrap: "wrap", gap: "1rem" }}>
             <button
+              className="promise-next-button"
               onClick={nextMessage}
               style={{
                 display: "inline-flex", alignItems: "center", gap: "0.45rem",
@@ -164,7 +167,7 @@ export default function PromiseSection() {
               }}
             >
               <Sparkles size={13} />
-              Baca harapan lainnya ✨
+              Read more wishes
             </button>
 
             {/* Indicator dots */}

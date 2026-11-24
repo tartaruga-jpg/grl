@@ -96,24 +96,32 @@ export default function JourneySection() {
           transition: "box-shadow 0.5s ease, border-color 0.5s ease",
         }}
       >
-        {/* Animated content wrapper when active tab changes */}
-        <div key={active} style={{ animation: "fadeSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both" }}>
-          {/* Watermark Number */}
-          <span
-            aria-hidden="true"
-            style={{
-              position: "absolute", top: "-1rem", right: "1rem",
-              fontFamily: "'Outfit', sans-serif",
-              fontSize: "clamp(5rem, 18vw, 9rem)",
-              fontWeight: 700,
-              color: "rgba(229,193,123,0.06)",
-              lineHeight: 1, userSelect: "none",
-              pointerEvents: "none",
-            }}
-          >
-            {phase.num}
-          </span>
+        {/* Watermark Number */}
+        <span
+          className="journey-watermark"
+          aria-hidden="true"
+          style={{
+            position: "absolute", top: "-1rem", right: "1rem", zIndex: 0,
+            fontFamily: "'Outfit', sans-serif",
+            fontSize: "clamp(5rem, 18vw, 9rem)",
+            fontWeight: 700,
+            color: "rgba(229,193,123,0.06)",
+            lineHeight: 1, userSelect: "none",
+            pointerEvents: "none",
+          }}
+        >
+          {phase.num}
+        </span>
 
+        {/* Animated content wrapper when active tab changes */}
+        <div
+          key={active}
+          style={{
+            position: "relative",
+            zIndex: 1,
+            animation: "fadeSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both",
+          }}
+        >
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.75rem" }}>
             <span style={{ fontSize: "1.85rem", filter: "drop-shadow(0 0 8px rgba(244,114,182,0.4))" }}>
               {phase.icon}

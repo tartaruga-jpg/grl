@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FloatingHearts from "./components/FloatingHearts";
-import SpotifyPlayer from "./components/SpotifyPlayer";
+import ShootingStars from "./components/ShootingStars";
 import PinGate from "./components/PinGate";
 import HeroSection from "./components/HeroSection";
 import StoryTimeline from "./components/StoryTimeline";
@@ -11,22 +11,25 @@ import PromiseSection from "./components/PromiseSection";
 
 export default function App() {
   const [unlocked, setUnlocked] = useState(false);
+  const [theme, setTheme] = useState("day");
 
   return (
     <div
+      className="app-shell"
+      data-theme={theme}
       style={{
         minHeight: "100dvh",
-        background: "linear-gradient(180deg, #0B0B0E 0%, #131218 50%, #0D0B10 100%)",
         position: "relative",
       }}
     >
       {/* Ambient glowing orb top */}
       <div
+        className="ambient-orb ambient-orb-top"
         aria-hidden="true"
         style={{
           position: "fixed", top: "-80px", left: "50%",
           width: "680px", height: "420px",
-          background: "radial-gradient(ellipse at center, rgba(225,29,72,0.12) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse at center, rgba(225,29,72,0.25) 0%, transparent 70%)",
           pointerEvents: "none", zIndex: 0,
           animation: "ambientBreathe 8s ease-in-out infinite",
         }}
@@ -34,31 +37,37 @@ export default function App() {
 
       {/* Ambient glowing orb bottom */}
       <div
+        className="ambient-orb ambient-orb-bottom"
         aria-hidden="true"
         style={{
           position: "fixed", bottom: "-100px", right: "10%",
           width: "500px", height: "350px",
-          background: "radial-gradient(ellipse at center, rgba(244,114,182,0.06) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse at center, rgba(190,18,60,0.18) 0%, transparent 70%)",
           pointerEvents: "none", zIndex: 0,
         }}
       />
 
+      <ShootingStars />
       <FloatingHearts />
 
       {!unlocked ? (
-        <PinGate onUnlock={() => setUnlocked(true)} />
+        <PinGate
+          onUnlock={() => setUnlocked(true)}
+          theme={theme}
+          onToggleTheme={() => setTheme((current) => current === "day" ? "night" : "day")}
+        />
       ) : (
-        <>
-          <SpotifyPlayer />
-          <main className="app-main-entrance">
-            <HeroSection />
-            <StoryTimeline />
-            <JourneySection />
-            <PhotoGallery />
-            <SpotlightSection />
-            <PromiseSection />
-          </main>
-        </>
+        <main className="app-main-entrance">
+          <HeroSection
+            theme={theme}
+            onToggleTheme={() => setTheme((current) => current === "day" ? "night" : "day")}
+          />
+          <StoryTimeline />
+          <JourneySection />
+          <PhotoGallery />
+          <SpotlightSection />
+          <PromiseSection />
+        </main>
       )}
     </div>
   );

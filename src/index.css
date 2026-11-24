@@ -7,17 +7,30 @@
 }
 
 html {
-  scroll-behavior: smooth;
   -webkit-tap-highlight-color: transparent;
+  overflow-x: clip;
+  max-width: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 body {
-  background: #0B0B0E;
-  color: #FAF6F5;
+  background: #FFD6E4;
+  color: #3B0D1D;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 /* ========== CSS Custom Properties ========== */
@@ -33,6 +46,316 @@ body {
   --text-muted: rgba(250, 246, 245, 0.55);
   --border-gold: rgba(229, 193, 123, 0.22);
   --border-rose: rgba(244, 114, 182, 0.22);
+}
+
+.app-shell {
+  min-height: 100dvh;
+  max-width: 100%;
+  overflow-x: clip;
+  position: relative;
+  transition: background 0.5s ease, color 0.4s ease;
+}
+
+.app-shell[data-theme="day"] {
+  --bg-deep: #FFD6E4;
+  --bg-mid: #FFB3CC;
+  --card-bg: rgba(255, 255, 255, 0.45);
+  --crimson: #BE123C;
+  --rose: #E11D48;
+  --ivory: #3B0D1D;
+  --gold: #BE123C;
+  --text-muted: rgba(59, 13, 29, 0.72);
+  --border-gold: rgba(225, 29, 72, 0.2);
+  --border-rose: rgba(190, 18, 60, 0.2);
+  background: linear-gradient(135deg, #FFD6E4 0%, #FFB3CC 50%, #FFD6E4 100%);
+  color: #3B0D1D;
+}
+
+.app-shell[data-theme="night"] {
+  background: linear-gradient(180deg, #0B0B0E 0%, #131218 50%, #0D0B10 100%);
+  color: #FAF6F5;
+}
+
+.app-shell[data-theme="day"] h1,
+.app-shell[data-theme="day"] h2,
+.app-shell[data-theme="day"] h3,
+.app-shell[data-theme="day"] h4,
+.app-shell[data-theme="day"] h5,
+.app-shell[data-theme="day"] h6 {
+  color: #3B0D1D !important;
+}
+
+.app-shell[data-theme="day"] p {
+  color: #6B1D36 !important;
+}
+
+.app-shell[data-theme="day"] span {
+  color: #BE123C !important;
+}
+
+.app-shell[data-theme="day"] button {
+  color: #6B1D36 !important;
+}
+
+.app-shell[data-theme="night"] h1,
+.app-shell[data-theme="night"] h2,
+.app-shell[data-theme="night"] h3,
+.app-shell[data-theme="night"] h4,
+.app-shell[data-theme="night"] h5,
+.app-shell[data-theme="night"] h6 {
+  color: #FAF6F5 !important;
+}
+
+.app-shell[data-theme="night"] p {
+  color: rgba(250, 246, 245, 0.78) !important;
+}
+
+.app-shell[data-theme="night"] span {
+  color: #E5C17B !important;
+}
+
+.app-shell[data-theme="day"] .journey-watermark {
+  color: rgba(190, 18, 60, 0.08) !important;
+}
+
+.app-shell[data-theme="night"] .journey-watermark {
+  color: rgba(229, 193, 123, 0.08) !important;
+}
+
+.app-shell[data-theme="night"] button {
+  color: #E5C17B !important;
+}
+
+.app-shell[data-theme="day"] .hero-heading-primary {
+  color: #3B0D1D !important;
+}
+
+.app-shell[data-theme="night"] .hero-heading-primary {
+  color: #FAF6F5 !important;
+}
+
+.app-shell[data-theme="day"] .hero-heading-accent {
+  background: none !important;
+  color: #BE123C !important;
+  -webkit-text-fill-color: #BE123C !important;
+}
+
+.app-shell[data-theme="night"] .hero-heading-accent {
+  background: linear-gradient(135deg, #E5C17B 0%, #FAF6F5 50%, #FB7185 100%) !important;
+  background-clip: text !important;
+  color: #E5C17B !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.app-shell[data-theme="night"] .ambient-orb-top {
+  background: radial-gradient(ellipse at center, rgba(225, 29, 72, 0.12) 0%, transparent 70%) !important;
+}
+
+.app-shell[data-theme="night"] .ambient-orb-bottom {
+  background: radial-gradient(ellipse at center, rgba(244, 114, 182, 0.06) 0%, transparent 70%) !important;
+}
+
+.app-main-entrance {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-section .spotify-player {
+  position: absolute !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  z-index: 50;
+}
+
+.hero-theme-toggle,
+.pin-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.45);
+  font: 600 0.72rem 'Outfit', sans-serif;
+  cursor: pointer;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.hero-theme-toggle {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 51;
+}
+
+.pin-theme-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 51;
+}
+
+.app-shell[data-theme="night"] .hero-theme-toggle,
+.app-shell[data-theme="night"] .pin-theme-toggle {
+  background: rgba(20, 19, 26, 0.88);
+  border-color: rgba(229, 193, 123, 0.45);
+}
+
+.app-shell[data-theme="day"] .hero-badge,
+.app-shell[data-theme="day"] .timeline-card,
+.app-shell[data-theme="day"] .spotlight-grid,
+.app-shell[data-theme="day"] .photo-card-frame,
+.app-shell[data-theme="day"] .portrait-floating,
+.app-shell[data-theme="day"] .promise-card,
+.app-shell[data-theme="day"] .pin-gate-card,
+.app-shell[data-theme="day"] .spotify-player-panel,
+.app-shell[data-theme="day"] [style*="rgba(20, 19, 26"],
+.app-shell[data-theme="day"] [style*="rgba(20,19,26"] {
+  background: rgba(255, 255, 255, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.65) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+}
+
+.app-shell[data-theme="day"] .hero-badge {
+  background: rgba(255, 255, 255, 0.45) !important;
+}
+
+.app-shell[data-theme="day"] .journey-tab-btn {
+  background: rgba(255, 255, 255, 0.45) !important;
+  border-color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.app-shell[data-theme="day"] .journey-tab-btn[style*="linear-gradient"] {
+  background: rgba(225, 29, 72, 0.16) !important;
+  border-color: rgba(190, 18, 60, 0.4) !important;
+}
+
+.app-shell[data-theme="day"] .trait-pill {
+  background: rgba(255, 255, 255, 0.38) !important;
+  border-color: rgba(255, 255, 255, 0.72) !important;
+}
+
+.app-shell[data-theme="day"] .pin-gate {
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(225, 29, 72, 0.2) 0%, rgba(255, 214, 228, 0.82) 70%) !important;
+}
+
+.app-shell[data-theme="day"] .pin-gate-success {
+  background: radial-gradient(circle at center, rgba(225, 29, 72, 0.22) 0%, rgba(255, 214, 228, 0.84) 75%) !important;
+}
+
+.app-shell[data-theme="day"] .pin-gate-card {
+  border-radius: 1.25rem;
+  padding: 1rem;
+}
+
+.app-shell[data-theme="day"] .pin-digit {
+  width: clamp(30px, 10vw, 54px) !important;
+  color: #3B0D1D !important;
+  background: rgba(255, 255, 255, 0.58) !important;
+  border-color: rgba(190, 18, 60, 0.35) !important;
+  caret-color: #BE123C !important;
+}
+
+.app-shell[data-theme="day"] .pin-digit-group {
+  gap: clamp(0.35rem, 2.4vw, 0.6rem) !important;
+}
+
+.app-shell[data-theme="day"] .pin-lock-badge {
+  background: rgba(255, 255, 255, 0.45) !important;
+  border-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.app-shell[data-theme="day"] .pin-gate svg {
+  color: #BE123C !important;
+}
+
+.app-shell[data-theme="day"] .spotify-player-button,
+.app-shell[data-theme="day"] .promise-main-button,
+.app-shell[data-theme="day"] .promise-next-button,
+.app-shell[data-theme="day"] .photo-lightbox-close {
+  background: rgba(255, 255, 255, 0.45) !important;
+  border-color: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+}
+
+.app-shell[data-theme="day"] .photo-lightbox {
+  background: rgba(255, 232, 240, 0.94) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+}
+
+.app-shell[data-theme="day"] .photo-card-frame p,
+.app-shell[data-theme="night"] .photo-card-frame p {
+  color: #3B0D1D !important;
+}
+
+.app-shell[data-theme="day"] .portrait-floating p {
+  color: #4A2030 !important;
+}
+
+.shooting-stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.shooting-star {
+  position: absolute;
+  left: 0;
+  top: var(--star-top);
+  width: 100px;
+  height: 2px;
+  border-radius: 999px;
+  opacity: 0;
+  background: linear-gradient(90deg, rgba(225, 29, 72, 0.9), rgba(255, 105, 180, 0.45), transparent);
+  box-shadow: 0 0 8px rgba(225, 29, 72, 0.28);
+  transform: rotate(-35deg);
+  animation: shootingStar 18s linear infinite;
+  animation-delay: var(--star-delay);
+}
+
+.shooting-star::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 8px #E11D48, 0 0 14px #FF69B4;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes shootingStar {
+  0% {
+    opacity: 0;
+    transform: translate3d(110vw, -35vh, 0) rotate(-35deg);
+  }
+  1% { opacity: 0.9; }
+  16% { opacity: 0.9; }
+  17% {
+    opacity: 0;
+    transform: translate3d(-120vw, 110vh, 0) rotate(-35deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-120vw, 110vh, 0) rotate(-35deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shooting-star {
+    display: none;
+    animation: none;
+  }
 }
 
 /* ========== Scroll-Reveal Setup ========== */
@@ -281,6 +604,12 @@ body {
   }
 }
 
+@keyframes desktopPhotoZoom {
+  0%, 58%, 100% { transform: scale(1); }
+  72%, 82% { transform: scale(var(--zoom-scale, 1.04)); }
+  92% { transform: scale(1); }
+}
+
 .marquee-container {
   position: relative;
   width: 100%;
@@ -338,6 +667,10 @@ body {
     margin: 0 auto;
     padding: 0 1.5rem;
   }
+  .photo-desktop-grid .photo-card-frame-zoom {
+    transform-origin: center;
+    animation: desktopPhotoZoom var(--zoom-duration, 8s) ease-in-out var(--zoom-delay, 0s) infinite;
+  }
   .photo-mobile-marquee {
     display: none !important;
   }
@@ -359,6 +692,12 @@ body {
   .marquee-card-wrap {
     flex: 0 0 165px !important;
     width: 165px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-desktop-grid .photo-card-frame-zoom {
+    animation: none;
   }
 }
 

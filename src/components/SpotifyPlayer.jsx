@@ -6,8 +6,9 @@ export default function SpotifyPlayer() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div style={{ position: "fixed", top: "1rem", right: "1rem", zIndex: 50 }}>
+    <div className="spotify-player" style={{ position: "absolute", top: "1rem", right: "1rem", zIndex: 50 }}>
       <button
+        className="spotify-player-button"
         onClick={() => setOpen((v) => !v)}
         aria-label="Toggle Spotify player"
         style={{
@@ -40,6 +41,7 @@ export default function SpotifyPlayer() {
 
       {open && (
         <div
+          className="spotify-player-panel"
           style={{
             marginTop: "0.5rem",
             borderRadius: "1rem",

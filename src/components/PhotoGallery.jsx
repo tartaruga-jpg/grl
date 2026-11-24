@@ -4,6 +4,11 @@ import { X } from "lucide-react";
 import { useReveal } from "../hooks/useReveal";
 
 const TILTS = [-1.5, 1.5, -1, 1.5, -1.5, 1];
+const ZOOM_PROFILES = config.images.map(() => ({
+  duration: `${6 + Math.random() * 5}s`,
+  delay: `${Math.random() * 8}s`,
+  scale: (1.025 + Math.random() * 0.055).toFixed(3),
+}));
 
 export default function PhotoGallery() {
   const [lightbox, setLightbox] = useState(null);
@@ -28,7 +33,7 @@ export default function PhotoGallery() {
   return (
     <section
       ref={refSection}
-      className="reveal"
+      className="reveal photo-gallery"
       style={{ padding: "4.5rem 0", position: "relative", zIndex: 1, maxWidth: "100%", margin: "0 auto", overflow: "hidden" }}
     >
       {/* Header */}
@@ -36,7 +41,7 @@ export default function PhotoGallery() {
         <p style={eyebrowStyle}>LITTLE MOMENTS</p>
         <h2 style={sectionTitleStyle}>Few Pictures of My Favorite Person</h2>
         <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: "1.45rem", color: "rgba(250,246,245,0.6)", marginTop: "0.2rem" }}>
-          sedikit foto favoritku dari kamu 🤍
+          Just a little collection of my favorite shots of you 
         </p>
       </div>
 
@@ -48,6 +53,7 @@ export default function PhotoGallery() {
               img={img}
               tilt={TILTS[i % TILTS.length]}
               isGray={grayIndex === i}
+              zoomProfile={ZOOM_PROFILES[i]}
               onClick={() => setLightbox(img)}
             />
           </div>
@@ -79,6 +85,7 @@ export default function PhotoGallery() {
       {/* Lightbox Modal */}
       {lightbox && (
         <div
+          className="photo-lightbox"
           onClick={() => setLightbox(null)}
           style={{
             position: "fixed", inset: 0, zIndex: 200,
@@ -89,6 +96,7 @@ export default function PhotoGallery() {
           }}
         >
           <button
+            className="photo-lightbox-close"
             onClick={() => setLightbox(null)}
             style={{
               position: "absolute", top: "1.2rem", right: "1.2rem",
@@ -125,7 +133,7 @@ export default function PhotoGallery() {
   );
 }
 
-function PhotoCard({ img, tilt, isGray, onClick }) {
+function PhotoCard({ img, tilt, isGray, zoomProfile, onClick }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -141,10 +149,16 @@ function PhotoCard({ img, tilt, isGray, onClick }) {
       }}
     >
       <div
+        className={zoomProfile ? "photo-card-frame photo-card-frame-zoom" : "photo-card-frame"}
         style={{
           background: "#F5EFE6",
           borderRadius: "0.35rem",
           padding: "0.55rem 0.55rem 2rem",
+          ...(zoomProfile ? {
+            "--zoom-duration": zoomProfile.duration,
+            "--zoom-delay": zoomProfile.delay,
+            "--zoom-scale": zoomProfile.scale,
+          } : {}),
           boxShadow: hovered
             ? "0 16px 40px rgba(0,0,0,0.55), 0 0 24px rgba(225,29,72,0.2)"
             : "0 6px 20px rgba(0,0,0,0.4)",

@@ -1,9 +1,12 @@
 import React from "react";
 import { config } from "../data/storyData";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Heart, Moon, Sun } from "lucide-react";
+import SpotifyPlayer from "./SpotifyPlayer";
 
-export default function HeroSection() {
+export default function HeroSection({ theme, onToggleTheme }) {
   const { badge, headingLine1, headingLine2, message, signOff, scrollCta } = config.hero;
+  const nextTheme = theme === "day" ? "night" : "day";
+  const ThemeIcon = nextTheme === "night" ? Moon : Sun;
 
   function scrollToStory() {
     document.getElementById("chapter-story")?.scrollIntoView({ behavior: "smooth" });
@@ -11,18 +14,32 @@ export default function HeroSection() {
 
   return (
     <section
+      className="hero-section"
       style={{
         minHeight: "100dvh",
         display: "flex", alignItems: "center", justifyContent: "center",
         flexDirection: "column",
         textAlign: "center",
-        padding: "5rem 1.5rem 4rem",
+        padding: "7.5rem 1.5rem 4rem",
         position: "relative", zIndex: 1,
         background: "radial-gradient(ellipse 65% 50% at 50% 42%, rgba(225,29,72,0.12) 0%, transparent 70%)",
       }}
     >
+      <button
+        type="button"
+        className="hero-theme-toggle"
+        onClick={onToggleTheme}
+        aria-label={`Ganti ke mode ${nextTheme === "night" ? "malam" : "siang"}`}
+        aria-pressed={theme === "night"}
+      >
+        <ThemeIcon size={16} strokeWidth={1.5} />
+        <span>{nextTheme === "night" ? "Malam" : "Siang"}</span>
+      </button>
+      <SpotifyPlayer />
+
       {/* Badge with smooth entrance */}
       <div
+        className="hero-badge"
         style={{
           display: "inline-flex", alignItems: "center",
           padding: "0.38rem 1.2rem",
@@ -49,6 +66,7 @@ export default function HeroSection() {
         }}
       >
         <span
+          className="hero-heading-primary"
           style={{
             display: "block",
             fontSize: "clamp(1.8rem, 5.5vw, 3.2rem)",
@@ -73,6 +91,7 @@ export default function HeroSection() {
           }}
         >
           <span
+            className="hero-heading-accent"
             style={{
               fontFamily: "'Great Vibes', cursive",
               fontSize: "clamp(3.2rem, 10vw, 5.8rem)",
@@ -87,7 +106,7 @@ export default function HeroSection() {
               filter: "drop-shadow(0 0 18px rgba(225,29,72,0.25))",
             }}
           >
-            Sayangku
+            My Love
           </span>
           <span
             aria-hidden="true"
@@ -101,7 +120,16 @@ export default function HeroSection() {
               marginBottom: "0.2em",
             }}
           >
-            🤍
+            <Heart
+              aria-hidden="true"
+              className="hero-heading-heart"
+              size={32}
+              strokeWidth={1.5}
+              style={{
+                width: "clamp(1.6rem, 4.8vw, 2.5rem)",
+                height: "clamp(1.6rem, 4.8vw, 2.5rem)",
+              }}
+            />
           </span>
         </div>
       </h1>
@@ -182,7 +210,7 @@ function Divider({ delay = "0.5s" }) {
       }}
     >
       <div style={{ flex: 1, height: "1px", background: "linear-gradient(90deg, transparent, rgba(229,193,123,0.4), transparent)" }} />
-      <span style={{ color: "#E5C17B", fontSize: "0.75rem", opacity: 0.7 }}>✦</span>
+      <span style={{ color: "#E5C17B", fontSize: "0.75rem", opacity: 0.7 }}>-</span>
       <div style={{ flex: 1, height: "1px", background: "linear-gradient(90deg, transparent, rgba(229,193,123,0.4), transparent)" }} />
     </div>
   );

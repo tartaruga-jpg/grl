@@ -69,7 +69,7 @@ export default function SpotlightSection() {
         <div>
           <div style={{ display:"inline-flex", padding:"0.28rem 0.85rem", borderRadius:"9999px", background:"rgba(225,29,72,0.14)", border:"1px solid rgba(225,29,72,0.32)", marginBottom:"0.75rem" }}>
             <span style={{ fontFamily:"'Outfit',sans-serif", fontSize:"0.68rem", letterSpacing:"0.08em", color:"#FB7185", fontWeight:600 }}>
-              ✦ Everything I Adore About You ✦
+               Everything I Adore About You 
             </span>
           </div>
 
@@ -79,7 +79,7 @@ export default function SpotlightSection() {
 
           {/* Great Vibes sub-quote */}
           <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: "1.25rem", color: "#E5C17B", marginBottom: "0.75rem" }}>
-            Selamanya milikku 🤍
+            Always yours 🤍
           </p>
 
           <p style={{ fontFamily:"'Plus Jakarta Sans',sans-serif", fontSize:"0.84rem", color:"rgba(250,246,245,0.7)", lineHeight:1.7, marginBottom:"1.1rem" }}>

@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect, useMemo } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { config } from "../data/storyData";
-import { Lock } from "lucide-react";
+import { Lock, Moon, Sun } from "lucide-react";
 
 const BURST_PARTICLES = [
   { symbol: "💖", angle: 0, dist: 190, scale: 1.5, delay: 0.08 },
@@ -29,12 +29,14 @@ const BURST_PARTICLES = [
   { symbol: "💕", angle: 290, dist: 150, scale: 1.4, delay: 0.15 },
 ];
 
-export default function PinGate({ onUnlock }) {
+export default function PinGate({ onUnlock, theme, onToggleTheme }) {
   const [digits, setDigits] = useState(Array(6).fill(""));
   const [shake, setShake] = useState(false);
   const [error, setError] = useState("");
   const [burst, setBurst] = useState(false);
   const refs = useRef([]);
+  const nextTheme = theme === "day" ? "night" : "day";
+  const ThemeIcon = nextTheme === "night" ? Moon : Sun;
 
   useEffect(() => { refs.current[0]?.focus(); }, []);
 
@@ -88,19 +90,31 @@ export default function PinGate({ onUnlock }) {
 
   return (
     <div
+      className="pin-gate"
       style={{
         minHeight: "100dvh",
         display: "flex", alignItems: "center", justifyContent: "center",
         flexDirection: "column", gap: "2rem",
         background: "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(225,29,72,0.18) 0%, #0B0B0E 70%)",
-        padding: "1.5rem",
+        padding: "5rem 1.5rem 1.5rem",
         position: "relative", zIndex: 10,
-        overflow: "hidden",
       }}
     >
+      <button
+        type="button"
+        className="pin-theme-toggle"
+        onClick={onToggleTheme}
+        aria-label={`Ganti ke mode ${nextTheme === "night" ? "" : ""}`}
+        aria-pressed={theme === "night"}
+      >
+        <ThemeIcon size={16} strokeWidth={1.5} />
+        <span>{nextTheme === "night" ? "" : ""}</span>
+      </button>
+
       {/* Grand Opening Heart Bloom & Particle Explosion */}
       {burst && (
         <div
+          className="pin-gate-success"
           aria-hidden="true"
           style={{
             position: "fixed",
@@ -187,6 +201,7 @@ export default function PinGate({ onUnlock }) {
 
       {/* Main Lock Screen Card */}
       <div
+        className="pin-gate-card"
         style={{
           textAlign: "center", maxWidth: "420px", width: "100%",
           animation: "fadeSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both",
@@ -197,6 +212,7 @@ export default function PinGate({ onUnlock }) {
       >
         <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.5rem" }}>
           <div
+            className="pin-lock-badge"
             style={{
               width: "58px", height: "58px", borderRadius: "50%",
               background: "rgba(225,29,72,0.18)",
@@ -218,7 +234,7 @@ export default function PinGate({ onUnlock }) {
         </h1>
 
         <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: "clamp(1.4rem, 4.5vw, 1.9rem)", color: "#E5C17B", marginBottom: "1.5rem" }}>
-          Hanya kamu yang tahu ✦
+          special day that only we know  
         </p>
 
         <p style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "0.88rem", color: "rgba(250,246,245,0.6)", marginBottom: "2rem", lineHeight: 1.6 }}>
@@ -226,6 +242,7 @@ export default function PinGate({ onUnlock }) {
         </p>
 
         <div
+          className="pin-digit-group"
           onPaste={handlePaste}
           style={{
             display: "flex", gap: "0.6rem", justifyContent: "center",
@@ -235,6 +252,7 @@ export default function PinGate({ onUnlock }) {
           {digits.map((d, i) => (
             <input
               key={i}
+              className="pin-digit"
               ref={(el) => (refs.current[i] = el)}
               type="text"
               inputMode="numeric"
