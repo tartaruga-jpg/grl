@@ -271,6 +271,44 @@ body {
   border-color: rgba(229,193,123,0.4) !important;
 }
 
+/* ========== Infinite Seamless Right-Marquee Carousel ========== */
+@keyframes marqueeRight {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0%, 0, 0);
+  }
+}
+
+.marquee-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 1.5rem 0;
+  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+}
+
+.marquee-track {
+  display: flex !important;
+  width: max-content;
+  gap: 1.25rem;
+  animation: marqueeRight 10s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover,
+.marquee-track:active {
+  animation-play-state: paused;
+}
+
+.marquee-card-wrap {
+  flex: 0 0 clamp(165px, 22vw, 215px);
+  width: clamp(165px, 22vw, 215px);
+  user-select: none;
+}
+
 /* Floating Portrait */
 .portrait-floating {
   animation: gentleSway 6s ease-in-out infinite;
@@ -282,51 +320,45 @@ body {
   box-shadow: 0 16px 42px rgba(225,29,72,0.3) !important;
 }
 
-/* ========== Default photo-track (desktop grid baseline) ========== */
-.photo-track {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-}
-
 /* ========== Responsive Overrides ========== */
 @media (min-width: 768px) {
   .journey-tabs {
     grid-template-columns: repeat(4, 1fr) !important;
   }
   .spotlight-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) !important;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr) !important;
+    gap: 2rem !important;
   }
-  .photo-track {
+  /* Desktop Gallery: Clean stationary 3-column grid */
+  .photo-desktop-grid {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
-    overflow-x: unset !important;
-    scroll-snap-type: unset !important;
+    gap: 1.5rem !important;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
   }
-  .photo-track .photo-card-wrap {
-    flex: unset !important;
-    width: unset !important;
+  .photo-mobile-marquee {
+    display: none !important;
   }
 }
 
 @media (max-width: 767px) {
   .spotlight-grid {
     grid-template-columns: 1fr !important;
+    padding: 1.5rem 1.2rem !important;
+    gap: 1.2rem !important;
   }
-  /* Mobile gallery: horizontal swipe */
-  .photo-track {
-    display: flex !important;
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory !important;
-    gap: 12px !important;
-    padding-bottom: 0.5rem !important;
-    scrollbar-width: none !important;
-    -ms-overflow-style: none !important;
+  /* Mobile Gallery: Auto-sliding right-marquee */
+  .photo-desktop-grid {
+    display: none !important;
   }
-  .photo-track::-webkit-scrollbar { display: none; }
-  .photo-track .photo-card-wrap {
-    flex: 0 0 40% !important;
-    scroll-snap-align: start !important;
+  .photo-mobile-marquee {
+    display: block !important;
+  }
+  .marquee-card-wrap {
+    flex: 0 0 165px !important;
+    width: 165px !important;
   }
 }
 
